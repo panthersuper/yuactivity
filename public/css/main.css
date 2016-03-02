@@ -36,6 +36,14 @@
     border-bottom: 2px solid rgba(46,205,220,0.6);
 }
 
+#copyright {
+	font-size: 10px;
+	position: absolute;
+	bottom: 100px;
+	right: 100px;
+	color: rgb(200,200,200);
+	cursor: pointer;
+}
 
 
 

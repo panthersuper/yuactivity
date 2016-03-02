@@ -67,7 +67,7 @@ function activity(act,geo,st,ed,map) {
 			this.col = "#2ecddc";
 			break;
 		case "transport":
-			this.col = "#ff0000";
+			this.col = "#ffae3d";
 			break
 		case "cycling":
 			this.col = "#00ff00";

@@ -7,6 +7,8 @@
 <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="js/jquery-1.9.1.min.js" charset="utf-8"></script>
+<script src="js/main.js" charset="utf-8"></script>
 
 <style>
   body { margin:0; padding:0; }
@@ -17,46 +19,10 @@
 <div id='map'></div>
 
 <script>
-L.mapbox.accessToken = 'pk.eyJ1IjoicGFudGhlcnN1cGVyIiwiYSI6ImNpbDVxOXppOTAwMW11aGx2NWtoZzJ3ZXoifQ.DxOVXLRSlTBg1v4k77AwzA';
 
-var map = L.mapbox.map('map', 'panthersuper.p969b9c1')
-  .setView([42.45, -71.5], 10);
-
-d3.json('activities.geojson',function(d){
-  console.log(d);
-  pllst = [];
-var polyline_options = {
-    color: '#ff0000',      // Stroke color
-    opacity: 0.2,         // Stroke opacity
-    weight: 2,         // Stroke weight
-    fillColor: '#ff0000',  // Fill color
-    fillOpacity: 0.6    // Fill opacity
-};
-
-
-  for(k in d["features"]){
-    var pline = d["features"][k].geometry.coordinates[0];
-
-    for(k in pline){
-      console.log(pline[k]);
-      pline[k] = [pline[k][1],pline[k][0]];
-    }
-
-    pllst.push(pline);
-
-
-
-    var polyline = L.polyline(pline, polyline_options).addTo(map);
-
-  }
-
-
-
-
-})
-
-
-
+$(document).ready(function(){
+  run();
+});
 
 </script>
 </body>

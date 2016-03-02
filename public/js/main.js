@@ -75,12 +75,7 @@ function activity(act,geo,st,ed,map) {
 			break;
 	}
 
-
-
 	console.log(this.col);
-
-
-
 
 	this.polyline_options = {
 		color: this.col, // Stroke color

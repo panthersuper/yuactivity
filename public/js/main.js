@@ -53,11 +53,11 @@ window.autoanimate = function(activities) {
 			activities[i].draw();
 
 			var ratio = i/totalen;
-			ratio = ratio*100+"%";
+			ratio = ratio*100*0.98+"%";
 			$("#mark").css("left",ratio);
 
 		}
-	}, 100);
+	}, 50);
 
 }
 

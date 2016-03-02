@@ -36,12 +36,9 @@ window.run = function() {
 		}
 
 		console.log(activities);
-		console.log(typelst);
+		var i=0;
+		setInterval(function() { i++; if (i < activities.length) { activities[i].draw(); } }, 10);
 
-		activities.forEach(function(activity){
-			activity.draw();
-
-		})
 
 	})
 
@@ -76,8 +73,6 @@ function activity(act,geo,st,ed,map) {
 			this.col = "#00ff00";
 			break;
 */	}
-
-	console.log(this.col);
 
 	this.polyline_options = {
 		color: this.col, // Stroke color

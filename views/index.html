@@ -8,6 +8,7 @@
 <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="js/jquery-1.9.1.min.js" charset="utf-8"></script>
+<link href='css/main.css' rel='stylesheet' />
 <script src="js/main.js" charset="utf-8"></script>
 
 <style>
@@ -16,7 +17,19 @@
 </style>
 </head>
 <body>
-<div id='map'></div>
+<div id= 'map'></div>
+<div id = "layer_legend">
+  <ul>walking
+    <div class = "legendline walk_lgd"></div>
+  </ul>
+  <ul>transport
+    <div class = "legendline tran_lgd"></div>
+  </ul>
+  <ul>cycling
+    <div class = "legendline cyc_lgd"></div>
+  </ul>
+
+</div>
 
 <script>
 

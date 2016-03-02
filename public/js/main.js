@@ -11,68 +11,87 @@ window.run = function() {
 
 
 		var activities = [];
+		var typelst = [];
 
 		for (k in d.features) {
 			var record = d.features[k];
 			var locgeoms = record.geometry.coordinates;
 			var locactivities = record.properties.activities;
 
-			//console.log(locgeoms, locactivities);
 			var locleng = locgeoms.length;
 
 			d3.range(locleng).forEach(function(i){
-				console.log(i);
 				var act = locactivities[i].activity;
+				if(typelst.indexOf(act)==-1)
+					typelst.push(act);
+
+
 				var geo = locgeoms[i];
+				
 				var st = locactivities[i].startTime;
 				var ed = locactivities[i].endTime;
 
-				activities.push(new activity(act,geo,st,ed));
+				activities.push(new activity(act,geo,st,ed,map));
 			})
 		}
 
 		console.log(activities);
+		console.log(typelst);
 
-		pllst = [];
+		activities.forEach(function(activity){
+			activity.draw();
 
-		var polyline_options = {
-			color: '#ff0000', // Stroke color
-			opacity: 0.2, // Stroke opacity
-			weight: 2, // Stroke weight
-			fillColor: '#ff0000', // Fill color
-			fillOpacity: 0.6 // Fill opacity
-		};
-
-		for (k in d["features"]) {
-			var pline = d["features"][k].geometry.coordinates[0];
-
-			switchXY(pline);
-
-			pllst.push(pline);
-
-			var polyline = L.polyline(pline, polyline_options).addTo(map);
-		}
+		})
 
 	})
 
 }
 
 window.switchXY = function(pline){
-	for (k in pline) {
-		pline[k] = [pline[k][1], pline[k][0]];
+	var out = $.extend(true, [], pline);
+	for (k in out) {
+		out[k] = [out[k][1], out[k][0]];
 	}
+	return out;
 }
 
-function activity(act,geo,st,ed) {
+function activity(act,geo,st,ed,map) {
 	this.activity = act;
-	this.geometry = geo;
+	this.geometry = switchXY(geo);
 	this.starttime = st;
 	this.endtime = ed;
 
-	var draw = function(){
+	this.col = null;
+	switch(this.activity){
+		case "walking":
+			this.col = "#00ff00";
+			break;
+		case "transport":
+			this.col = "#ff0000";
+			break
 
+		case "cycling":
+			this.col = "#2ecddc";
+			break;
 	}
 
 
+
+	console.log(this.col);
+
+
+
+
+	this.polyline_options = {
+		color: this.col, // Stroke color
+		opacity: 0.2, // Stroke opacity
+		weight: 2, // Stroke weight
+		fillColor: '#ff0000', // Fill color
+		fillOpacity: 0.6 // Fill opacity
+	};
+
+	this.draw = function(){
+		var polyline = L.polyline(this.geometry, this.polyline_options).addTo(map);
+	}
 
 }

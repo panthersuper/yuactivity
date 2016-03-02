@@ -1,20 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
+
+* {
+	margin:0;
+	padding:0;
+	font-family: 'Roboto Condensed', sans-serif;
+}
 
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+#layer_legend {
+	width: 300px;
+	position: absolute;
+	bottom: 100px;
+	left: 100px;
+	color: rgb(200,200,200);
+	cursor: pointer;
+}
 
+.legendline {
+	position: absolute;
+    width: 50px;
+    border-bottom: 1px solid white;
+    left: 85px;
+    transform: translateY(-8px);
+}
 
+.walk_lgd {
+    border-bottom: 2px solid rgba(0,255,0,0.6);
+}
 
+.tran_lgd {
+    border-bottom: 2px solid rgba(255,0,0,0.6);
+}
 
-
-
-
-
-
-
-
-
+.cyc_lgd {
+    border-bottom: 2px solid rgba(46,205,220,0.6);
+}
 
 
 

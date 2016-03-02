@@ -35,6 +35,10 @@ window.run = function() {
 			})
 		}
 
+		activities.forEach(function(activity){
+			activity.draw();
+		});
+
 		control(activities);
 
 	})

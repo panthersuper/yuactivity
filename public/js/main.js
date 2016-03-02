@@ -37,7 +37,7 @@ window.run = function() {
 
 		console.log(activities);
 		var i=0;
-		setInterval(function() { i++; if (i < activities.length) { activities[i].draw(); } }, 10);
+		setInterval(function() { i++; if (i < activities.length) { activities[i].draw(); } }, 100);
 
 
 	})

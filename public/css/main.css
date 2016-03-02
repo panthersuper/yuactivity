@@ -45,6 +45,12 @@
 	cursor: pointer;
 }
 
-
-
-
+.title {
+	font-size: 30px;
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	color: rgb(200,200,200);
+	border-bottom: 1px solid white;
+	padding:5px;
+}

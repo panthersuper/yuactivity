@@ -3,7 +3,7 @@ window.run = function() {
 	L.mapbox.accessToken = 'pk.eyJ1IjoicGFudGhlcnN1cGVyIiwiYSI6Il9JRlBXMkkifQ.4VOcpN_xI1jf1XxjnIZHmw';
 
 	var map = L.mapbox.map('map', 'panthersuper.8fb2ee46')
-		.setView([42.45, -71.5], 10);
+		.setView([42.45, -71.3], 10);
 
 	d3.selectAll(".leaflet-control-container").remove();
 
@@ -20,31 +20,48 @@ window.run = function() {
 
 			var locleng = locgeoms.length;
 
-			d3.range(locleng).forEach(function(i){
+			d3.range(locleng).forEach(function(i) {
 				var act = locactivities[i].activity;
-				if(typelst.indexOf(act)==-1)
+				if (typelst.indexOf(act) == -1)
 					typelst.push(act);
 
 
 				var geo = locgeoms[i];
-				
+
 				var st = locactivities[i].startTime;
 				var ed = locactivities[i].endTime;
 
-				activities.push(new activity(act,geo,st,ed,map));
+				activities.push(new activity(act, geo, st, ed, map));
 			})
 		}
 
-		console.log(activities);
-		var i=0;
-		setInterval(function() { i++; if (i < activities.length) { activities[i].draw(); } }, 100);
-
+		control(activities);
 
 	})
+}
+
+
+
+window.autoanimate = function(activities) {
+	d3.selectAll("path").remove();;
+	var i = 0;
+	setInterval(function() {
+		i++;
+		var totalen = activities.length;
+
+		if (i < totalen) {
+			activities[i].draw();
+
+			var ratio = i/totalen;
+			ratio = ratio*100+"%";
+			$("#mark").css("left",ratio);
+
+		}
+	}, 100);
 
 }
 
-window.switchXY = function(pline){
+window.switchXY = function(pline) {
 	var out = $.extend(true, [], pline);
 	for (k in out) {
 		out[k] = [out[k][1], out[k][0]];
@@ -52,7 +69,7 @@ window.switchXY = function(pline){
 	return out;
 }
 
-function activity(act,geo,st,ed,map) {
+function activity(act, geo, st, ed, map) {
 	this.activity = act;
 	this.geometry = switchXY(geo);
 	this.starttime = st;
@@ -60,7 +77,7 @@ function activity(act,geo,st,ed,map) {
 
 	this.col = null;
 	this.stroke = null;
-	switch(this.activity){
+	switch (this.activity) {
 		case "walking":
 			this.col = "#2ecddc";
 			this.stroke = 3;
@@ -69,10 +86,11 @@ function activity(act,geo,st,ed,map) {
 			this.col = "#ff843d";
 			this.stroke = 1;
 			break
-/*		case "cycling":
-			this.col = "#00ff00";
-			break;
-*/	}
+			/*		case "cycling":
+						this.col = "#00ff00";
+						break;
+			*/
+	}
 
 	this.polyline_options = {
 		color: this.col, // Stroke color
@@ -82,8 +100,28 @@ function activity(act,geo,st,ed,map) {
 		fillOpacity: 0.6 // Fill opacity
 	};
 
-	this.draw = function(){
+	this.draw = function() {
 		var polyline = L.polyline(this.geometry, this.polyline_options).addTo(map);
 	}
 
+
+
 }
+
+
+////////////////////////////////////
+//button control part
+
+window.control = function(activities){
+	$("#play").click(function() {
+
+		console.log("hhh");
+		autoanimate(activities);
+
+	});
+
+
+}
+
+
+

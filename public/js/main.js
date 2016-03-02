@@ -62,24 +62,27 @@ function activity(act,geo,st,ed,map) {
 	this.endtime = ed;
 
 	this.col = null;
+	this.stroke = null;
 	switch(this.activity){
 		case "walking":
 			this.col = "#2ecddc";
+			this.stroke = 3;
 			break;
 		case "transport":
-			this.col = "#ffae3d";
+			this.col = "#ff843d";
+			this.stroke = 1;
 			break
-		case "cycling":
+/*		case "cycling":
 			this.col = "#00ff00";
 			break;
-	}
+*/	}
 
 	console.log(this.col);
 
 	this.polyline_options = {
 		color: this.col, // Stroke color
 		opacity: 0.2, // Stroke opacity
-		weight: 2, // Stroke weight
+		weight: this.stroke, // Stroke weight
 		fillColor: '#ff0000', // Fill color
 		fillOpacity: 0.6 // Fill opacity
 	};

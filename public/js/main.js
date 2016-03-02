@@ -1,8 +1,8 @@
 window.run = function() {
 
-	L.mapbox.accessToken = 'pk.eyJ1IjoicGFudGhlcnN1cGVyIiwiYSI6ImNpbDVxOXppOTAwMW11aGx2NWtoZzJ3ZXoifQ.DxOVXLRSlTBg1v4k77AwzA';
+	L.mapbox.accessToken = 'pk.eyJ1IjoicGFudGhlcnN1cGVyIiwiYSI6Il9JRlBXMkkifQ.4VOcpN_xI1jf1XxjnIZHmw';
 
-	var map = L.mapbox.map('map', 'panthersuper.p969b9c1')
+	var map = L.mapbox.map('map', 'panthersuper.8fb2ee46')
 		.setView([42.45, -71.5], 10);
 
 	d3.selectAll(".leaflet-control-container").remove();
@@ -64,14 +64,13 @@ function activity(act,geo,st,ed,map) {
 	this.col = null;
 	switch(this.activity){
 		case "walking":
-			this.col = "#00ff00";
+			this.col = "#2ecddc";
 			break;
 		case "transport":
 			this.col = "#ff0000";
 			break
-
 		case "cycling":
-			this.col = "#2ecddc";
+			this.col = "#00ff00";
 			break;
 	}
 

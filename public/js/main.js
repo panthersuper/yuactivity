@@ -1,9 +1,13 @@
+window.intercalid;
+
+
 window.run = function() {
 
 	L.mapbox.accessToken = 'pk.eyJ1IjoicGFudGhlcnN1cGVyIiwiYSI6Il9JRlBXMkkifQ.4VOcpN_xI1jf1XxjnIZHmw';
 
 	var map = L.mapbox.map('map', 'panthersuper.8fb2ee46')
 		.setView([42.45, -71.3], 10);
+
 
 	d3.selectAll(".leaflet-control-container").remove();
 
@@ -48,9 +52,14 @@ window.run = function() {
 
 
 window.autoanimate = function(activities) {
-	d3.selectAll("path").remove();;
+	d3.selectAll(".mypath").remove();;
+
+	if(window.intercalid){
+		window.clearInterval(window.intercalid);
+	}
+
 	var i = 0;
-	setInterval(function() {
+	window.intercalid = window.setInterval(function() {
 		i++;
 		var totalen = activities.length;
 
@@ -63,8 +72,27 @@ window.autoanimate = function(activities) {
 
 		}
 	}, 50);
+}
+
+window.skipTo = function(activities,ratio){
+	d3.selectAll(".mypath").remove();;
+	if(window.intercalid){
+		window.clearInterval(window.intercalid);
+	}
+
+	var len = activities.length;
+	var thresh = len*ratio;
+
+		activities.forEach(function(activity,i){
+			if(i<thresh)
+			activity.draw();
+		});
+
 
 }
+
+
+
 
 window.switchXY = function(pline) {
 	var out = $.extend(true, [], pline);
@@ -107,7 +135,7 @@ function activity(act, geo, st, ed, map) {
 	this.draw = function() {
 		var polyline = L.polyline(this.geometry, this.polyline_options);
 		polyline.addTo(map);
-		d3.select(polyline._container).attr("class",act);
+		d3.select(polyline._container).attr("class",act+" mypath");
 	}
 
 
@@ -120,8 +148,6 @@ function activity(act, geo, st, ed, map) {
 
 window.control = function(activities){
 	$("#play").click(function() {
-
-		console.log("hhh");
 		autoanimate(activities);
 
 	});
@@ -140,6 +166,19 @@ window.control = function(activities){
 
 		}else
 			$(".transport").hide();
+
+	});
+
+	d3.select("#timeline").on("click",function(event){
+		var xx = d3.mouse(this)[0];
+		var total = +d3.select(this).style("width").split("px")[0];
+		console.log(xx,total);
+
+		var ratio = xx/total;
+		skipTo(activities,xx/total);
+
+		var ratioS = ratio*100*0.98+"%";
+		$("#mark").css("left",ratioS);
 
 	});
 

@@ -102,6 +102,16 @@ window.switchXY = function(pline) {
 	return out;
 }
 
+window.convertTimeStr = function(time0) {
+		var t = time0.split("T");
+		var date = t[0];
+		date = date.substring(0,4)+"/"+date.substring(4,6)+"/"+date.substring(6,8)
+		var time = t[1].substring(0,4);
+		time = time.substring(0,2)+":"+time.substring(2,4);
+		return date+ "  " + time;
+}
+
+
 function activity(act, geo, st, ed, map) {
 	this.activity = act;
 	this.geometry = switchXY(geo);
@@ -133,16 +143,18 @@ function activity(act, geo, st, ed, map) {
 	};
 
 	this.draw = function() {
-		var polyline = L.polyline(this.geometry, this.polyline_options);
+		var startTime = convertTimeStr(this.starttime);
+		var endTime = convertTimeStr(this.endtime);
+			var content = '<h2>Activity Info<\/h2>' +
+				'<p><strong>Time:</strong> ' + startTime+" to "+endTime + '<\/p>' + 
+				'<p><strong>Activity Type:</strong> ' + this.activity + '<\/p>';
+
+
+
+		var polyline = L.polyline(this.geometry, this.polyline_options).bindPopup(content);
 		polyline.addTo(map);
 		d3.select(polyline._container).attr("class",act+" mypath");
-
-		var t = this.endtime.split("T");
-		var date = t[0];
-		date = date.substring(0,4)+"/"+date.substring(4,6)+"/"+date.substring(6,8)
-		var time = t[1].substring(0,4);
-		time = time.substring(0,2)+":"+time.substring(2,4);
-		$("#nowtime").text(date+ "  " + time);
+		$("#nowtime").text(convertTimeStr(this.endtime));
 	}
 
 

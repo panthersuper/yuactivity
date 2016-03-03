@@ -139,6 +139,7 @@ function activity(act, geo, st, ed, map) {
 
 		var t = this.endtime.split("T");
 		var date = t[0];
+		date = date.substring(0,4)+"/"+date.substring(4,6)+"/"+date.substring(6,8)
 		var time = t[1].substring(0,4);
 		time = time.substring(0,2)+":"+time.substring(2,4);
 		$("#nowtime").text(date+ "  " + time);

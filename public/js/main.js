@@ -136,6 +136,12 @@ function activity(act, geo, st, ed, map) {
 		var polyline = L.polyline(this.geometry, this.polyline_options);
 		polyline.addTo(map);
 		d3.select(polyline._container).attr("class",act+" mypath");
+
+		var t = this.endtime.split("T");
+		var date = t[0];
+		var time = t[1].substring(0,4);
+		time = time.substring(0,2)+":"+time.substring(2,4);
+		$("#nowtime").text(date+ "  " + time);
 	}
 
 

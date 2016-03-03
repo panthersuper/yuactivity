@@ -107,3 +107,11 @@
 	display: none !important;
 	opacity: 0 !important;
 }
+
+#nowtime {
+	position: absolute;
+    left: 100px;
+    color: rgba(255,255,255,0.6);
+    bottom: 139px;
+    font-size: 10px;
+}

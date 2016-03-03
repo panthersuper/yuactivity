@@ -102,3 +102,8 @@
     position: absolute;
     top: 5px;
 }
+
+.tohide {
+	display: none !important;
+	opacity: 0 !important;
+}

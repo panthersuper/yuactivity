@@ -35,15 +35,16 @@ window.run = function() {
 			})
 		}
 
+
+
 		activities.forEach(function(activity){
 			activity.draw();
 		});
 
 		control(activities);
 
-	})
+	});
 }
-
 
 
 window.autoanimate = function(activities) {
@@ -100,12 +101,13 @@ function activity(act, geo, st, ed, map) {
 		color: this.col, // Stroke color
 		opacity: 0.2, // Stroke opacity
 		weight: this.stroke, // Stroke weight
-		fillColor: '#ff0000', // Fill color
-		fillOpacity: 0.6 // Fill opacity
+
 	};
 
 	this.draw = function() {
-		var polyline = L.polyline(this.geometry, this.polyline_options).addTo(map);
+		var polyline = L.polyline(this.geometry, this.polyline_options);
+		polyline.addTo(map);
+		d3.select(polyline._container).attr("class",act);
 	}
 
 
@@ -124,6 +126,22 @@ window.control = function(activities){
 
 	});
 
+	$(".walk").click(function(){
+		if($(".walking").attr("style") == "display: none;"){
+			$(".walking").show();
+
+		}else
+			$(".walking").hide();
+
+	});
+	$(".trans").click(function(){
+		if($(".transport").attr("style") == "display: none;"){
+			$(".transport").show();
+
+		}else
+			$(".transport").hide();
+
+	});
 
 }
 
